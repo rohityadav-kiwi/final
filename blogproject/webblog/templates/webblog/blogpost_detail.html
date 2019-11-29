@@ -1,0 +1,13 @@
+{% include "webblog/base.html" %}
+
+{% block content %}
+<div class="post_title">
+    <h2>{{ object.title|capfirst }}</h2>
+</div>
+<div class="post_content">
+    <p>{{ object.post_content }}</p>
+    <h5> Author - {{ object.author|capfirst }}, Published on - {{ object.created_date | date:"F d, Y" }}</h5>
+
+</div>
+
+{% endblock content %}

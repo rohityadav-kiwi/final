@@ -1,0 +1,47 @@
+{% include "webblog/base.html" %}
+<head>
+<style>
+h3 {
+  border-style: hidden;
+}
+    div {
+  border-style: outset;
+  border-width: 1px;
+  border-color: yellow;
+}
+</style>
+</head>
+<body>
+<h3> BLOG's </h3>
+{% block content %}
+{% for post in posts %}
+<div class =post_title>
+
+    <h3><a href="{% url 'post-detail' post.id %}">{{ post.title|capfirst }}</a></h3>
+
+    <div class = post_content>
+        <p>{{ post.post_content| truncatewords:10}}</p>
+    </div>
+</div>
+{% endfor %}
+
+<div class="page">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+    {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">next</a>
+            <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+
+
+    </span>
+</div>
+{% endblock %}

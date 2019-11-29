@@ -1,0 +1,12 @@
+{% extends 'webblog/base.html' %}
+{% block title %} signup {% endblock %}
+{% block content %}
+<h2>sign up here</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign up</button>
+     <h4>already have an account?</h4> <a href="{% url 'login' %}">Login Here</a>
+
+</form>
+{% endblock %}

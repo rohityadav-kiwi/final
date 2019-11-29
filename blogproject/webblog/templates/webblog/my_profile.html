@@ -1,0 +1,12 @@
+{% include "webblog/base.html" %}
+<body>
+{% block content %}
+{% for user_profile in user_profile %}
+<div>
+    <h4> Username - {{ user_profile.user|capfirst }}</h4>
+    <h5> Email - {{ user_profile.email }}</h5>
+    <h5> Phone - {{ user_profile.phone }}</h5>
+</div>
+{% endfor %}
+{% endblock %}
+</body>
