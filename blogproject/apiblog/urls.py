@@ -1,12 +1,15 @@
 """ django urls are checked here"""
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-
 from .classapiview import BlogList, BlogDetail
 from .accounts import signup, login
 from .views import post_list, post_details
+from .genericviews import GenericBlogCreate, GenericMyBlogList, GenericBlogDetail
 
 urlpatterns = [
+    path("myblogs/", GenericMyBlogList.as_view(), name="api_my_blog"),
+    path("create/", GenericBlogCreate.as_view(), name="api_create_blog"),
+    path("myblogs/<int:pk>/", GenericBlogDetail.as_view(), name="api_update_delete"),
     path("blog/", BlogList.as_view(), name='blog_list'),
     path('blog/<int:pk>/', BlogDetail.as_view(), name='blog_detail'),
     path("posts/", post_list, name='post_list'),

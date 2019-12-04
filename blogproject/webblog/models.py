@@ -12,17 +12,8 @@ class Profile(models.Model):
     phone = models.CharField(default=0, max_length=15)
     email = models.CharField(max_length=50)
 
-    # def __str__(self):
-    #     return self.user
-
-
-"""
-@receiver(post_save, sender=User)
-def update_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-    instance.profile.save()
-"""
+    def __str__(self):
+        return self.user
 
 
 class BlogPost(models.Model):
@@ -35,11 +26,11 @@ class BlogPost(models.Model):
     published_date = models.DateTimeField(blank=True, null=True)
     is_published = models.BooleanField(default=False)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         """save function override"""
         if self.is_published and not self.published_date:
             self.published_date = datetime.now()
-        super(BlogPost, self).save()
+        super(BlogPost, self).save(*args, **kwargs)
 
     # def publish(self):
     #     self.published_date = models.DateTimeField(timezone.now)
