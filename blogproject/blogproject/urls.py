@@ -18,8 +18,13 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # web login
     path("accounts/", include('django.contrib.auth.urls')),
+    # web blog
     path("blog/", include('webblog.urls')),
+
+    # api blog
     path("api/", include('apiblog.urls')),
+    # drf
     path('api-auth/', include('rest_framework.urls')),
 ]

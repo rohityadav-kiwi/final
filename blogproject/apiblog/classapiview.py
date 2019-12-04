@@ -7,6 +7,8 @@ from rest_framework.views import APIView
 from .serializers import BlogListSerializer
 from webblog.models import BlogPost
 
+from rest_framework import viewsets
+
 
 class BlogList(APIView, LimitOffsetPagination):
     """
@@ -39,3 +41,12 @@ class BlogDetail(APIView):
         blog = self.get_object(pk)
         serializer = BlogListSerializer(blog)
         return Response(serializer.data)
+
+
+class AllBlogViewSet(viewsets.ReadOnlyModelViewSet):
+
+    queryset = BlogPost.objects.filter(is_published=True)
+    pagination_class = LimitOffsetPagination
+    permission_classes = [permissions.IsAuthenticated, ]
+    serializer_class = BlogListSerializer
+

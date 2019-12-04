@@ -1,10 +1,16 @@
 """ django urls are checked here"""
-from django.urls import path
+from django.db import router
+from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from .classapiview import BlogList, BlogDetail
+from .classapiview import BlogList, BlogDetail, AllBlogViewSet
 from .accounts import signup, login
 from .views import post_list, post_details
-from .genericviews import GenericBlogCreate, GenericMyBlogList, GenericBlogDetail
+from .genericviews import GenericBlogCreate, GenericMyBlogList, GenericBlogDetail, MyBlogViewSet
+from rest_framework import routers
+from rest_framework.routers import SimpleRouter
+
+routers = routers.SimpleRouter()
+
 
 urlpatterns = [
     path("myblogs/", GenericMyBlogList.as_view(), name="api_my_blog"),
@@ -17,4 +23,12 @@ urlpatterns = [
     path('signup/', signup, name='SignupView'),
     path('login/', login, name='loginView'),
 ]
-urlpatterns = format_suffix_patterns(urlpatterns)
+
+router = SimpleRouter()
+
+router.register('blogs', AllBlogViewSet)
+router.register('my-blogs', MyBlogViewSet)
+
+urlpatterns += [
+    path('', include(router.urls)),
+]
