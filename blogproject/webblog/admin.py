@@ -1,6 +1,5 @@
 """register your app"""
 from django.contrib import admin
-from .models import Profile, BlogPost
+from .models import BlogPost
 
-admin.site.register(Profile)
 admin.site.register(BlogPost)

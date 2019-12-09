@@ -1,16 +1,16 @@
+"""login signup view"""
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
-
 from .serializers import UserSerializer, LoginSerializer
 
 
 @api_view(http_method_names=['POST'])
 def login(request):
+    """login view"""
     if request.method == 'POST':
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -25,7 +25,8 @@ def login(request):
 
 @api_view(http_method_names=['POST'])
 def signup(request):
-    data = JSONParser().parse(request)
+    """signup view"""
+    data = request.data
     serializer = UserSerializer(data=data)
     if serializer.is_valid():
         serializer.save()

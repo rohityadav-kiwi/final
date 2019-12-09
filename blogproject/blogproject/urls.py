@@ -24,7 +24,7 @@ urlpatterns = [
     path("blog/", include('webblog.urls')),
 
     # api blog
-    path("api/", include('apiblog.urls')),
+    path("api/", include(('apiblog.urls', "apiblog"), namespace='apiblog')),
     # drf
     path('api-auth/', include('rest_framework.urls')),
 ]
