@@ -62,12 +62,8 @@ def signup(request):
     """sign up view"""
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        user, user_profile = form.save(commit=False)
+        form.save(commit=False)
         if form.is_valid():
-            # username = user.cleaned_data.get('username')
-            # raw_password = user.cleaned_data.get('password1')
-            # user = authenticate(username=username, password=raw_password)
-            # login(request, user)
             return redirect('login')
     else:
         form = SignUpForm
