@@ -53,4 +53,3 @@ class AllBlogViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = LimitOffsetPagination
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = BlogListSerializer
-

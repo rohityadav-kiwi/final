@@ -1,9 +1,8 @@
 """writing some test cases"""
-from tokenize import Token
 
 from django.contrib.auth.models import User
 from rest_framework.reverse import reverse
-from rest_framework.test import APITestCase, APIClient
+from rest_framework.test import APITestCase
 
 
 class TestLogin(APITestCase):
@@ -27,7 +26,7 @@ class TestLogin(APITestCase):
             "password": self.password,
         }
         result = self.client.post(self.url, data=data)
-        self.assertEqual(200, result.status_code)
+        self.assertEqual(200, result.status_code, "login successful")
 
     def test_login_empty_username(self):
         """test with empty username and password"""
@@ -36,7 +35,7 @@ class TestLogin(APITestCase):
             "password": self.password,
         }
         result = self.client.post(self.url, data=data)
-        self.assertEqual(400, result.status_code)
+        self.assertEqual(400, result.status_code, "empty username")
 
     def test_login_empty_password(self):
         """test with empty password"""
@@ -45,7 +44,7 @@ class TestLogin(APITestCase):
             "password": ""
         }
         result = self.client.post(self.url, data=data)
-        self.assertEqual(400, result.status_code)
+        self.assertEqual(400, result.status_code, "empty password")
 
     def test_login_invalid_username(self):
         """test with invalid username"""
@@ -54,7 +53,7 @@ class TestLogin(APITestCase):
             "password": self.password
         }
         result = self.client.post(self.url, data=data)
-        self.assertEqual(400, result.status_code)
+        self.assertEqual(400, result.status_code, "invalid username")
 
     def test_login_invalid_password(self):
         """test with invalid password"""
@@ -63,14 +62,13 @@ class TestLogin(APITestCase):
             "password": "fgdfgdfs"
         }
         result = self.client.post(self.url, data=data)
-        self.assertEqual(400, result.status_code)
+        self.assertEqual(400, result.status_code, "invalid password")
 
 
 class TestSignup(APITestCase):
     """
      Test cases for user registration
     """
-
 
     def setUp(self):
         """overriding setup method"""
@@ -87,7 +85,7 @@ class TestSignup(APITestCase):
         """
         url = reverse('apiblog:SignupView')
         response = self.client.post(url, self.data)
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 201, "signup successful")
 
     def test_registration_empty_name(self):
         """
@@ -96,7 +94,7 @@ class TestSignup(APITestCase):
         self.data["username"] = ""
         url = reverse('apiblog:SignupView')
         response = self.client.post(url, self.data)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 400, "empty username")
 
     def test_registration__name(self):
         """
@@ -106,7 +104,7 @@ class TestSignup(APITestCase):
         self.data["username"] = name_length
         url = reverse('apiblog:SignupView')
         response = self.client.post(url, self.data)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 400, "username length is too long")
 
     def test_registration_empty_email(self):
         """
@@ -115,7 +113,7 @@ class TestSignup(APITestCase):
         self.data["email"] = ""
         url = reverse('apiblog:SignupView')
         response = self.client.post(url, self.data)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 400, "empty email")
 
     def test_registration_invalid_email(self):
         """
@@ -124,7 +122,7 @@ class TestSignup(APITestCase):
         self.data["email"] = "kiwitech"
         url = reverse('apiblog:SignupView')
         response = self.client.post(url, self.data)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 400, "invalid email")
 
     def test_registration_empty_pwd(self):
         """
@@ -133,7 +131,7 @@ class TestSignup(APITestCase):
         self.data["password"] = ""
         url = reverse('apiblog:SignupView')
         response = self.client.post(url, self.data)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 400, "empty password")
 
     def tearDown(self):
         """
@@ -141,31 +139,3 @@ class TestSignup(APITestCase):
         :return: None
         """
         User.objects.all().delete()
-
-
-# class TestBlog(TestLogin):
-#     """
-#          Test cases for user blog
-#         """
-#
-#     def setUp(self):
-#         """overriding setup method"""
-#
-#         super().setUp()
-#
-#         self.data = {
-#             "title": "sss",
-#             "post_content": "sss@sss.com",
-#             "published": "True",
-#             "author": self.username
-#
-#         }
-#
-#     def test_registration_works(self):
-#         """
-#             test case for valid form data
-#             """
-#         self.data["author"] = User.username
-#         url = reverse('apiblog:api_create_blog')
-#         response = self.client.post(url, self.data)
-#         self.assertEqual(response.status_code, 201)

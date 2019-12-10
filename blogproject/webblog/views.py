@@ -62,7 +62,7 @@ def signup(request):
     """sign up view"""
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        user, user_profile = form.save(commit=False)
+        form.save(commit=False)
         if form.is_valid():
             return redirect('login')
     else:

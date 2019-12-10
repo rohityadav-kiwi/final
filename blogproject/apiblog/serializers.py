@@ -2,8 +2,8 @@
     instances to native Python data types that
     can then be easily rendered into JSON. it also can be used for data validation"""
 from django.contrib.auth import authenticate
-from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from rest_framework.validators import UniqueValidator
 from webblog.models import Profile, BlogPost
@@ -88,5 +88,3 @@ class MyBlogSerializer(serializers.ModelSerializer):
         """fields and model to use"""
         model = BlogPost
         fields = ['id', 'title', 'post_content', 'is_published']
-
-

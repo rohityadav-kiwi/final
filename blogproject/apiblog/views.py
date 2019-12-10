@@ -3,7 +3,7 @@
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from webblog.models import BlogPost, Profile
+from webblog.models import BlogPost
 from .serializers import BlogPostSerializer
 
 
