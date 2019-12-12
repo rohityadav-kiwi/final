@@ -1,6 +1,5 @@
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
-
 from .permissions import IsOwnerOrReadOnly
 from .serializers import BlogPostSerializer,  MyBlogSerializer
 from rest_framework import generics, status, permissions, viewsets

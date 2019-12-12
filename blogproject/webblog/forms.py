@@ -38,7 +38,7 @@ class BlogPostForm(forms.ModelForm):
     class Meta:
         """ meta class"""
         model = BlogPost
-        fields = ('title', 'post_content','is_published')
+        fields = ('title', 'post_content', 'is_published')
         widgets = {'author': forms.HiddenInput()}
 
     def save(self, commit=True):

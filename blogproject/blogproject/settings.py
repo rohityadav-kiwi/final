@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
-    # "apiblog.apps.ApiblogConfig",
+    "apiblog.apps.ApiblogConfig",
     'webblog.apps.WebblogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
